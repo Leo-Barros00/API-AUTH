@@ -1,14 +1,14 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
 	"os"
 
+	"github.com/jinzhu/gorm"
 	_ "github.com/lib/pq"
 )
 
-func connectionString() string {
+func getConnectionString() string {
 	return fmt.Sprintf(
 		"host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		os.Getenv("DATABASE_HOST"),
@@ -19,16 +19,14 @@ func connectionString() string {
 	)
 }
 
-func connectToDatabase() (*sql.DB, error) {
-	db, err := sql.Open("postgres", connectionString())
+func getDatabaseConnection() *gorm.DB {
+	db, err := gorm.Open("postgres", getConnectionString())
 	if err != nil {
-		return nil, err
+		panic(fmt.Sprintf("Failed to connect to database: %v", err))
 	}
+	return db
+}
 
-	err = db.Ping()
-	if err != nil {
-		return nil, err
-	}
-
-	return db, nil
+func (User) TableName() string {
+	return "User"
 }
