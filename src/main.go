@@ -25,5 +25,5 @@ func main() {
 		refreshHandler(c, db)
 	})
 
-	router.Run(":8080")
+	router.Run(":3330")
 }
