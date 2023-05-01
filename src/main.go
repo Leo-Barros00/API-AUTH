@@ -1,32 +1,28 @@
 package main
 
 import (
-	"log"
+	"fmt"
 
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 )
-
-func loadEnv() error {
-	err := godotenv.Load()
-	if err != nil {
-		return err
-	}
-	return nil
-}
 
 func main() {
 	err := loadEnv()
 	if err != nil {
-		log.Fatal("Failed to load .env file:", err)
+		panic(fmt.Sprintf("Failed to load .env file: %v", err))
 	}
+
+	db := getDatabaseConnection()
+	defer db.Close()
 
 	router := gin.Default()
 
-	router.GET("/health", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"status": "running",
-		})
+	router.GET("/health", healthHandler)
+	router.POST("/login", func(c *gin.Context) {
+		loginHandler(c, db)
+	})
+	router.POST("/refresh", func(c *gin.Context) {
+		refreshHandler(c, db)
 	})
 
 	router.Run(":8080")
