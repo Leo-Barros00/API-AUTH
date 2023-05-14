@@ -17,7 +17,7 @@ COPY . .
 RUN go build -o main ./src
 
 # Exponha a porta que o aplicativo irá rodar
-EXPOSE 8080
+EXPOSE 3330
 
 # Comando para iniciar o aplicativo
 CMD ["./main"]
