@@ -35,6 +35,7 @@ func loginHandler(c *gin.Context, db *gorm.DB) {
 		} else {
 			c.JSON(http.StatusInternalServerError, gin.H{"message": "Erro interno do servidor"})
 		}
+		return
 	}
 
 
