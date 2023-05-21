@@ -57,19 +57,19 @@ func validateTokenSignature(tokenString string) bool {
 	return err == nil && token.Valid
 }
 
-func validateToken(tokenString string) (bool, jwt.MapClaims) {
+func validateToken(tokenString string) jwt.MapClaims {
 	token, err := parseToken(tokenString)
 
 	if err != nil || !token.Valid {
-		return false, nil
+		return nil
 	}
 
 	claims, ok := token.Claims.(jwt.MapClaims)
 	if !ok {
-		return false, nil
+		return nil
 	}
 
-	return true, claims
+	return claims
 }
 
 func extractAuthHeaderToken(authHeader string) string {

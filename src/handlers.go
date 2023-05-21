@@ -61,9 +61,9 @@ func refreshHandler(c *gin.Context, db *gorm.DB) {
 	}
 
 	refreshTokenString := req.RefreshToken
-	isRefreshTokenValid, tokenClaims := validateToken(refreshTokenString)
+	tokenClaims := validateToken(refreshTokenString)
 
-	if !isRefreshTokenValid && tokenClaims == nil {
+	if tokenClaims == nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"message": "Parâmetros inválidos"})
 		return
 	}
