@@ -19,12 +19,8 @@ func getConnectionString() string {
 	)
 }
 
-func getDatabaseConnection() *gorm.DB {
-	db, err := gorm.Open("postgres", getConnectionString())
-	if err != nil {
-		panic(fmt.Sprintf("Failed to connect to database: %v", err))
-	}
-	return db
+func getDatabaseConnection() (db *gorm.DB, err error) {
+	return gorm.Open("postgres", getConnectionString())
 }
 
 func (User) TableName() string {

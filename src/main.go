@@ -12,7 +12,11 @@ func main() {
 		panic(fmt.Sprintf("Failed to load .env file: %v", err))
 	}
 
-	db := getDatabaseConnection()
+	db, err := getDatabaseConnection()
+	if err != nil {
+		panic(fmt.Sprintf("Failed to load .env file: %v", err))
+	}
+
 	defer db.Close()
 
 	router := gin.Default()
