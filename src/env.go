@@ -6,8 +6,5 @@ import (
 
 func loadEnv() error {
 	err := godotenv.Load()
-	if err != nil {
-		return err
-	}
-	return nil
+	return err
 }
