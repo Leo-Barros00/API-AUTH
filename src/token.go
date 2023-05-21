@@ -11,7 +11,7 @@ import (
 )
 
 func generateDynamicSecretKey(isRefreshToken bool) string {
-	baseSecretKey := os.Getenv("SECRET_KEY")
+	baseSecretKey := os.Getenv("BASE_SECRET_KEY")
 	var secretKey string
 
 	if isRefreshToken {
