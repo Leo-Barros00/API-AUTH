@@ -14,7 +14,7 @@ func main() {
 
 	db, err := getDatabaseConnection()
 	if err != nil {
-		panic(fmt.Sprintf("Failed to load .env file: %v", err))
+		panic(fmt.Sprintf("Failed to connect to database: %v", err))
 	}
 
 	defer db.Close()
